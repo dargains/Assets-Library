@@ -71,7 +71,7 @@ const BookList = React.createClass({
       }
     });
   },
-  grab: function(e) {
+  grabAsset: function(e) {
     var view = this,
         id = e.target.parentElement.parentElement.id,
         obj = {
@@ -83,7 +83,7 @@ const BookList = React.createClass({
       view.state.booksDB.child(id).update({isOccupied: true})
     });
   },
-  return: function(e) {
+  returnAsset: function(e) {
     var view = this,
         id = e.target.parentElement.parentElement.id;
     view.state.booksDB.once("value", snapshot => {
@@ -94,8 +94,10 @@ const BookList = React.createClass({
       view.state.booksDB.child(id).update({isOccupied: false});
     });
   },
-  request: function(e) {
+  requestAsset: function(e) {
     console.log("send request")
+    var view = this;
+    
   },
   prepareListForRender() {
     var view = this,
@@ -104,11 +106,11 @@ const BookList = React.createClass({
         loggedUser = view.state.userName;
     for(var item in books) {
       if(books[item] !== 0) {
-        var user = "",
+        let user = "",
             date = "",
             isUser = false;
         if (books[item].isOccupied) {
-          var lastLog = books[item].log[Object.keys(books[item].log)[Object.keys(books[item].log).length - 1]];
+          let lastLog = books[item].log[Object.keys(books[item].log)[Object.keys(books[item].log).length - 1]];
           user = lastLog.user;
           date = lastLog.dateInit;
           if (user === loggedUser) isUser = true;
@@ -124,9 +126,9 @@ const BookList = React.createClass({
                             date={date}
                             isUser={isUser}
                             onBookInfo={view.getBookInfo}
-                            handleGrab={view.grab}
-                            handleReturn={view.return}
-                            handleRequest={view.request}
+                            handleGrab={view.grabAsset}
+                            handleReturn={view.returnAsset}
+                            handleRequest={view.requestAsset}
                       />
         )
       }
