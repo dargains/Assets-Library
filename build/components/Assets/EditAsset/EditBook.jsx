@@ -4,20 +4,29 @@ import Chart from "./Chart";
 export default class EditBook extends React.Component{
   constructor(props) {
     super();
+    var view = this;
     this.state = {
       chartData: [],
+      bookId: props.location.query.key,
+      bookName: "",
       usersDB: props.route.database.ref().child("users"),
       booksDB: props.route.database.ref().child("books"),
     }
+    this.getChartData = this.getChartData.bind(this);
   }
   componentWillMount(){
-    var view = this;
-    this.state.booksDB.on("value", snapshot => {view.getChartData(snapshot);});
+    var view = this,
+        name = "";
+    this.state.booksDB.on("value", snapshot => {
+      view.getChartData(snapshot);
+      name = snapshot.val()[view.state.bookId].title;
+      view.setState({bookName: name})
+    });
   }
   getChartData(snapshot){
     var view = this;
     var data = []
-    var logObj = snapshot.val()["uheiwlhfuloiwa"].log,
+    var logObj = snapshot.val()[this.state.bookId].log,
         usersArray = [],
         counts={};
     for(let item in logObj){
@@ -37,7 +46,7 @@ export default class EditBook extends React.Component{
   render() {
     return (
       <div className="editBook">
-        <h1>edit book</h1>
+        <h2>{this.state.bookName}</h2>
         <Chart data={this.state.chartData}/>
       </div>
     )

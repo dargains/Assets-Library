@@ -41,19 +41,27 @@ class LogIn extends React.Component{
   render() {
     var view = this;
     return (
-      <form className="loginForm">
-        <div className="mdl-textfield mdl-js-textfield">
-          <input className="mdl-textfield__input" type="text" id="inputEmail" value={this.state.emailInput} onChange={this.handleEmailInput} />
-          <label className="mdl-textfield__label" htmlFor="inputEmail">Email</label>
-        </div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <input className="mdl-textfield__input" type="password" id="inputPassword" value={this.state.passwordInput} onChange={this.handlePasswordInput} />
-          <label className="mdl-textfield__label" htmlFor="inputPassword">Password</label>
-        </div>
-        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onClick={this.handleLogin.bind(view)}>Log in</button>
-        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onClick={this.handleSignup.bind(view)}>Sign up</button>
-        <p id="loginError"></p>
-      </form>
+      <div className="login row">
+        <form className="col s12">
+          <div className="row">
+            <div className="input-field col l4 offset-l4 s12">
+              <input id="inputEmail" type="text" className="validate" value={this.state.emailInput} onChange={this.handleEmailInput} />
+              <label htmlFor="inputEmail">Email</label>
+            </div>
+            </div>
+            <div className="row">
+            <div className="input-field col l4 offset-l4 s12">
+              <input id="inputPassword" type="password" className="validate" value={this.state.passwordInput} onChange={this.handlePasswordInput} />
+              <label htmlFor="inputPassword">Password</label>
+            </div>
+          </div>
+          <div className="row center-align">
+            <button className="waves-effect waves-light btn indigo" onClick={this.handleLogin.bind(view)}>Log in</button>
+            <button className="waves-effect waves-light btn blue" onClick={this.handleSignup.bind(view)}>Sign up</button>
+            <p id="loginError"></p>
+          </div>
+        </form>
+      </div>
     )
   }
 }

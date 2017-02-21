@@ -22,7 +22,7 @@ export default class Header extends React.Component{
         view.setState({showNav: true, userEmail: firebaseUser.email});
         view.getUserNameWithEmail(firebaseUser.email);
         view.getUserIdWithEmail(firebaseUser.email);
-        browserHistory.push({pathname: '/list'})
+        browserHistory.push({pathname: '/assetList'})
       } else {
         view.setState({showNav: false, userName: "", userEmail: ""});
         browserHistory.push('/');
@@ -61,20 +61,42 @@ export default class Header extends React.Component{
   }
   render() {
     return (
-      <header className="mdl-layout__header">
-        <div className="mdl-layout__header-row">
-          <span className="mdl-layout-title">Hello, {this.state.userName ? `${this.state.userName}` : "please log in or sign up"}</span>
-          <div className="mdl-layout-spacer"></div>
-          {this.state.showNav ?
-          <nav className="mdl-navigation mdl-layout--large-screen-only">
-            <Link className="mdl-navigation__link" to="list">Book List</Link>
-            <Link className="mdl-navigation__link" to="addBook">Add Book</Link>
-            <Link className="mdl-navigation__link" to="editBook">Edit Book</Link>
-            <a href="#" className="mdl-navigation__link" to="account" onClick={this.logOut}>Log out</a>
-          </nav>
+      <div className="navbar-fixed">
+        <nav className="indigo">
+          <div className="nav-wrapper container">
+            <span href="#" className="center">Hello, {this.state.userName ? `${this.state.userName}` : "please log in or sign up"}</span>
+            {this.state.showNav ?
+            <ul className="right hide-on-med-and-down">
+              <li><Link to="assetList" activeClassName="active">Asset List</Link></li>
+              <li><Link to="addAsset" activeClassName="active">Add Asset</Link></li>
+              <li><Link to="userList" activeClassName="active">User List</Link></li>
+              <li><Link to="addUser" activeClassName="active">Add User</Link></li>
+              <li><a href="#logoutModal">Log out</a></li>
+            </ul>
             : ""}
+            {this.state.showNav ?
+            <ul id="nav-mobile" className="side-nav">
+              <li><Link to="assetList" activeClassName="active">Asset List</Link></li>
+              <li><Link to="addAsset" activeClassName="active">Add Asset</Link></li>
+              <li><Link to="userList" activeClassName="active">User List</Link></li>
+              <li><Link to="addUser" activeClassName="active">Add User</Link></li>
+              <li><a href="#logoutModal">Log out</a></li>
+            </ul>
+            : ""}
+            <a href="#" data-activates="nav-mobile" className="button-collapse"><i className="material-icons">menu</i></a>
+          </div>
+        </nav>
+        <div id="logoutModal" className="modal">
+          <div className="modal-content">
+            <h4>Logout</h4>
+            <p>Do you really want to logout?</p>
+          </div>
+          <div className="modal-footer">
+            <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat" onClick={this.logOut}>Yes</a>
+            <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+          </div>
         </div>
-      </header>
+      </div>
     )
   }
 };

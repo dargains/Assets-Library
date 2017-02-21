@@ -9,7 +9,8 @@ export default class Chart extends React.Component{
               data={this.props.data}
               cx={200}
               cy={200}
-              outerRadius={50}
+              innerRadius={80}
+              outerRadius={100}
               fill="#8884d8"
               label
           />

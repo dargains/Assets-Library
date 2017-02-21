@@ -1,14 +1,20 @@
+.login {
+  margin-top: 50px;
+}
 .loginForm {
   text-align: center;
   padding: 40px 0;
 }
-.mdl-textfield {
-  display: block;
-  margin: 0 auto;
-}
-.mdl-button {
+.btn {
   margin: 5px;
 }
 #loginError {
   color: tomato;
+  text-align: center;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
 }

@@ -2,9 +2,9 @@ import React from "react";
 import Firebase from "firebase";
 import { browserHistory } from "react-router"
 import Book from "./Book";
-require("./BookList.scss")
+require("./AssetList.scss")
 
-const BookList = React.createClass({
+const AssetList = React.createClass({
   getInitialState: function() {
     return {
       users: {},
@@ -14,16 +14,18 @@ const BookList = React.createClass({
       userName: ""
     }
   },
-  getBookInfo: function(e) {
+  goToEdit: function(e) {
     e = e || window.event;
     e.stopPropagation();
     var target = e.target || e.srcElement,
         key = target.parentElement.parentElement.id;
-    console.log(`Edit book key ${key}`)
+    browserHistory.push({pathname: '/editbook', query: {key: key}});
   },
   componentWillMount: function() {
     var view = this;
-    this.state.booksDB.on("value", snapshot => view.setState({books: snapshot.val()}));
+    this.state.booksDB.on("value", snapshot => {
+      view.setState({books: snapshot.val()});
+    });
     Firebase.auth().onAuthStateChanged(firebaseUser => {
       if (firebaseUser) {
         view.setState({ userEmail: firebaseUser.email });
@@ -31,7 +33,7 @@ const BookList = React.createClass({
       }
     });
   },
-  getTodayDate() {
+  getTodayDate: function() {
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
@@ -46,7 +48,7 @@ const BookList = React.createClass({
     var today = dd+'/'+mm+'/'+yyyy;
     return today;
   },
-  getUserNameWithEmail(e) {
+  getUserNameWithEmail: function(e) {
     var view = this;
     this.state.usersDB.once("value", snapshot => {
       var userObj = snapshot.val();
@@ -58,7 +60,7 @@ const BookList = React.createClass({
       }
     });
   },
-  getUserIdWithEmail(e) {
+  getUserIdWithEmail: function(e) {
     var view = this,
         result = "";
     this.state.usersDB.once("value", snapshot => {
@@ -80,7 +82,8 @@ const BookList = React.createClass({
         };
     view.state.booksDB.once("value", snapshot => {
       view.state.booksDB.child(id).child("log").push(obj);
-      view.state.booksDB.child(id).update({isOccupied: true})
+      view.state.booksDB.child(id).update({isOccupied: true});
+      Materialize.toast('Asset grabbed', 4000);
     });
   },
   returnAsset: function(e) {
@@ -92,14 +95,15 @@ const BookList = React.createClass({
           lastLogId = array[array.length - 1];
       view.state.booksDB.child(id).child("log").child(lastLogId).update({dateFin: view.getTodayDate()});
       view.state.booksDB.child(id).update({isOccupied: false});
+      Materialize.toast('Asset returned', 4000);
     });
   },
   requestAsset: function(e) {
     console.log("send request")
     var view = this;
-    
+    Materialize.toast('Asset requested', 4000);
   },
-  prepareListForRender() {
+  prepareBookList: function() {
     var view = this,
         bookList = [],
         books = view.state.books,
@@ -120,12 +124,13 @@ const BookList = React.createClass({
                             title={books[item].title}
                             author={books[item].author}
                             description={books[item].description}
+                            image={books[item].image}
                             tags={books[item].tags}
                             isOccupied={books[item].isOccupied}
                             user={user}
                             date={date}
                             isUser={isUser}
-                            onBookInfo={view.getBookInfo}
+                            handleInfo={view.goToEdit}
                             handleGrab={view.grabAsset}
                             handleReturn={view.returnAsset}
                             handleRequest={view.requestAsset}
@@ -136,7 +141,7 @@ const BookList = React.createClass({
     return bookList;
   },
   render: function() {
-    var bookList = this.prepareListForRender()
+    var bookList = this.prepareBookList()
     return (
       <div className="card-container">
         {bookList}
@@ -145,4 +150,4 @@ const BookList = React.createClass({
   }
 });
 
-export default BookList;
+export default AssetList;
