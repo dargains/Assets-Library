@@ -27,6 +27,7 @@ class AddUser extends Component {
         name = this.state.nameInput,
         email = this.state.emailInput,
         obj = {name: name, email: email};
+        id = target.id
     this.state.usersDB.once("value", function (snapshot) { view.state.usersDB.push(obj) });
     this.setState({nameInput: "", emailInput: ""})
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import { browserHistory } from "react-router"
 import User from "./User";
+require("./UserList.scss");
 
 var UserList = React.createClass({
   getInitialState: function() {
@@ -19,7 +20,7 @@ var UserList = React.createClass({
   editUser: function(e){
     e = e || window.event;
     e.stopPropagation();
-    var target = e.target.parentElement || e.srcElement,
+    var target = e.target.parentElement.parentElement || e.srcElement,
         key = target.id;
     browserHistory.push({pathname: '/edituser', query: {key: key}});
   },
@@ -47,20 +48,9 @@ var UserList = React.createClass({
   render: function() {
     var userList = this.prepareListForRender()
     return (
-      <div className="userList row">
-        <table className="highlight responsive-table">
-          <thead>
-            <tr>
-              <th data-field="name">Name</th>
-              <th data-field="email">E-mail</th>
-              <th data-field="delete">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userList}
-          </tbody>
-        </table>
-      </div>
+        <ul className="collection userList">
+          {userList}
+        </ul>
     );
   }
 });
