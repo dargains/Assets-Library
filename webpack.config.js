@@ -2,7 +2,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './build/index.html',
+  template: __dirname + '/build/index.html',
   filename: 'index.html',
   inject: 'body'
 })
@@ -10,7 +10,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 module.exports = {
   entry: './build/main.js',
   output: {
-    path: path.resolve('build'),
+    path: __dirname + '/dist',
     filename: 'bundle.js'
   },
   module: {

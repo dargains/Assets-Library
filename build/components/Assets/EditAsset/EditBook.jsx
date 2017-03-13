@@ -1,5 +1,7 @@
 import React from "react";
 import Chart from "./Chart";
+import MdArrowBack from "react-icons/lib/md/arrow-back";
+import { Link } from "react-router";
 
 export default class EditBook extends React.Component{
   constructor(props) {
@@ -46,6 +48,7 @@ export default class EditBook extends React.Component{
   render() {
     return (
       <div className="editBook">
+        <Link to="assetList" className="mdl-navigation__link"> <MdArrowBack /> back </Link>
         <h2>{this.state.bookName}</h2>
         <Chart data={this.state.chartData}/>
       </div>
