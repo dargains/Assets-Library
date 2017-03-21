@@ -33,8 +33,17 @@ class AddAsset extends Component {
   render() {
     var view = this;
     return (
-      <div className="login row">
+      <div className="row">
+        <h1>Add asset</h1>
         <form className="col s12">
+          <p>
+            <input name="assetType" type="radio" id="book" />
+            <label htmlFor="book">Book</label>
+          </p>
+          <p>
+            <input name="assetType" type="radio" id="device" />
+            <label htmlFor="device">Device</label>
+          </p>
           <div className="row">
             <div className="input-field col l4 offset-l4 s12">
               <input id="userName" type="text" className="validate" pattern="[A-Z,a-z, ]*" value={view.state.nameInput} onChange={view.handleNameInput} />

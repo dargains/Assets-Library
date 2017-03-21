@@ -34,7 +34,8 @@ class AddUser extends Component {
   render() {
     var view = this;
     return (
-      <div className="login row">
+      <div className="row">
+        <h1>Add user</h1>
         <form className="col s12">
           <div className="row">
             <div className="input-field col l4 offset-l4 s12">

@@ -38,6 +38,7 @@ var UserList = React.createClass({
               id={item}
               name={users[item].name}
               email={users[item].email}
+              image={users[item].image}
               onUserDelete={view.removeFromDB}
               onUserEdit={view.editUser}
               />
@@ -48,9 +49,12 @@ var UserList = React.createClass({
   render: function() {
     var userList = this.prepareListForRender()
     return (
+      <div>
+        <h1>User list</h1>
         <ul className="collection userList">
           {userList}
         </ul>
+      </div>
     );
   }
 });

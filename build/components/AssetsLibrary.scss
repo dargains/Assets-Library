@@ -1,39 +1,47 @@
-html, body {
+body,
+html {
   height: 100%;
 }
+
 main {
   margin-top: 20px !important;
 }
-$color: indigo;
+$indigo: #3f51b5;
+$blue: #2196F3;
 $gray: gray;
 /* label color */
- .input-field label {
-   color: $gray;
- }
- /* label focus color */
- .input-field input[type=text]:focus + label,
- .input-field input[type=password]:focus + label {
-   color: $color;
- }
- /* label underline focus color */
- .input-field input[type=text]:focus,
-  .input-field input[type=password]:focus {
-   border-bottom: 1px solid $color;
-   box-shadow: 0 1px 0 0 $color;
- }
- /* valid color */
- .input-field input[type=text].valid,
- .input-field input[type=password].valid {
-   border-bottom: 1px solid $color;
-   box-shadow: 0 1px 0 0 $color;
- }
- /* invalid color */
- .input-field input[type=text].invalid,
-  .input-field input[type=password].invalid {
-   border-bottom: 1px solid red;
-   box-shadow: 0 1px 0 0 red;
- }
- /* icon prefix focus color */
- .input-field .prefix.active {
-   color: $color;
- }
+.input-field label {
+  color: $gray;
+}
+/* label focus color */
+.input-field input[type=password]:focus + label,
+.input-field input[type=text]:focus + label {
+  color: $indigo;
+}
+[type="radio"]:checked + label:after,
+[type="radio"].with-gap:checked + label:after {
+  background-color: $blue;
+  border-color: $blue;
+}
+/* label underline focus color */
+.input-field input[type=password]:focus,
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid $indigo;
+  box-shadow: 0 1px 0 0 $indigo;
+}
+/* valid color */
+.input-field input[type=password].valid,
+.input-field input[type=text].valid {
+  border-bottom: 1px solid $indigo;
+  box-shadow: 0 1px 0 0 $indigo;
+}
+/* invalid color */
+.input-field input[type=password].invalid,
+.input-field input[type=text].invalid {
+  border-bottom: 1px solid red;
+  box-shadow: 0 1px 0 0 red;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: $indigo;
+}

@@ -143,9 +143,27 @@ const AssetList = React.createClass({
   render: function() {
     var bookList = this.prepareBookList()
     return (
-      <div className="card-container">
-        {bookList}
-      </div>
+      <section className="AssetList">
+        <h1>Assets list</h1>
+        <div className="row">
+          <div className="input-field col s12 m3 ">
+            <select multiple>
+              <option value="" disabled selected>Choose your option</option>
+              <option value="1">Books</option>
+              <option value="2">Devices</option>
+            </select>
+            <label>Asset type</label>
+          </div>
+          <div className="input-field col s12 m5">
+            <i className="material-icons prefix">search</i>
+            <input type="text" id="search-input" className="autocomplete" />
+            <label htmlFor="search-input">Search</label>
+          </div>
+        </div>
+        <div className="card-container">
+          {bookList}
+        </div>
+    </section>
     );
   }
 });

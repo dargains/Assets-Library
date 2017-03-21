@@ -3,6 +3,7 @@ import EditUserForm from "./EditUserForm";
 import UserChart from "./UserChart";
 import MdArrowBack from "react-icons/lib/md/arrow-back";
 import { Link } from "react-router";
+require("./EditUser.scss");
 
 class EditUser extends Component {
   constructor(props){
@@ -12,26 +13,44 @@ class EditUser extends Component {
       userKey: props.location.query.key,
       editUser: false
     };
-    this.getUserName = this.getUserName.bind(this)
-    this.showForm = this.showForm.bind(this)
-
+    this.getUserData = this.getUserData.bind(this);
+    this.showForm = this.showForm.bind(this);
   }
-  getUserName() {
+  getUserData() {
     var view = this,
-        name = "";
-    this.state.usersDB.once("value", function (snapshot) { name = snapshot.val()[view.state.userKey].name });
-    return name;
+        userObj = {};
+    this.state.usersDB.once("value", function (snapshot) {
+      let user = snapshot.val()[view.state.userKey]
+      userObj.name = user.name;
+      userObj.email = user.email;
+      userObj.image = user.image;
+    });
+    return userObj;
   }
   showForm() {
     var newState = !this.state.editUser;
     this.setState({editUser: newState})
   }
   render() {
-    var view = this;
+    var view = this,
+        userObj = view.getUserData();
+    var name = userObj.name,
+        email = userObj.email,
+        image = userObj.image;
     return (
-      <div className="row">
-        <Link to="userList" className="mdl-navigation__link"> <MdArrowBack /> back </Link>
-        <h3>{view.getUserName()}</h3>
+      <div className="userDetails">
+        <div className="row">
+          <Link to="userList" className="mdl-navigation__link backLink"> <MdArrowBack /> back </Link>
+        </div>
+        <div className="row">
+          <div className="col s12 m3">
+            <div className="userImage" style={{backgroundImage: `url(${image})`}}></div>
+          </div>
+          <div className="userInfo col s12 m8">
+            <h3>{name}</h3>
+            <p>{email}</p>
+          </div>
+        </div>
         <h5>Assets grabbed</h5>
         <UserChart />
         {view.state.editUser ?
