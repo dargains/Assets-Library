@@ -8,6 +8,7 @@ main {
 }
 $indigo: #3f51b5;
 $blue: #2196F3;
+$red: #F44336;
 $gray: gray;
 /* label color */
 .input-field label {
@@ -38,8 +39,8 @@ $gray: gray;
 /* invalid color */
 .input-field input[type=password].invalid,
 .input-field input[type=text].invalid {
-  border-bottom: 1px solid red;
-  box-shadow: 0 1px 0 0 red;
+  border-bottom: 1px solid $red;
+  box-shadow: 0 1px 0 0 $red;
 }
 /* icon prefix focus color */
 .input-field .prefix.active {
